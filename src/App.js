@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+import {useState} from 'react'
 import './App.css';
+import Msg from './components/Message'
+import ListOfGift from './components/ListOfGift';
+import {Route} from 'wouter'
 
 function App() {
+
+  const [keyword, setKeyword] = useState(['random'])
+  const busqueda = (event) => {
+    event.preventDefault()
+    return setKeyword(event.target[0].value)
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Msg message="GifMatico" />
+      <form onSubmit={busqueda}>
+        <input type='search'/>
+      </form>
+      <br />
+        {/* <ListOfGift keyword={keyword}/> */}
+      <br />
+      <Route
+        component={ListOfGift}
+        path="/gif/:keyword"
+      />
     </div>
   );
 }
